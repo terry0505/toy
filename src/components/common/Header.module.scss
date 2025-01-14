@@ -1,0 +1,33 @@
+.header {
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border-radius: 5px;
+    width: 98%;
+    background-color: #efefef;
+    color: #555;
+    gap: 30px;
+    h1 {
+      font-size: 22px;
+      font-weight: 900;
+    }
+    .navbar {
+        display: flex;
+        align-items: center;
+        gap:20px;
+        font-size: 15px;
+        font-weight: 600;
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: all 0.3s;
+            &:hover {
+                color: #ff5f15;
+            }
+        }
+    }
+  }

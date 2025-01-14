@@ -1,0 +1,13 @@
+.wrapper {
+    .container {
+      padding: 30px;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      .container {
+        padding: 20px;
+      }
+    }
+  }
