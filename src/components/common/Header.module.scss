@@ -15,35 +15,4 @@
       font-weight: 900;
     }
   
-    .navbar {
-    
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 20px;
-      font-size: 15px;
-      font-weight: 600;
-  
-      li {
-        a {
-          display: block;
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          color: #555;   
-        }
-        &:hover {
-            a {
-                color: #ff5f15; 
-            }
-        }
-        &.on {
-            a {
-              color: #ff5f15; 
-              font-weight: bold; 
-            }
-        }
-      }
-
-    }
   }

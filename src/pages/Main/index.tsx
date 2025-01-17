@@ -1,14 +1,35 @@
 import { Link } from 'react-router-dom';
-import startBtn from "@/assets/img/start_btn.png";
 import styles from './Main.module.scss';
 
 export default function Main() {
   return (
     <div className={styles.main}>
-        <Link to="/game/gugudan">
-            <img src={startBtn} alt="start" />
-        </Link>
-        <p>버튼을 눌러 게임을 시작하세요.</p>
+      <ul className={styles.navbar} >
+        <li>
+          <Link to="/game/gugudan">구구단</Link>
+        </li>
+        <li>
+          <Link to="/game/word-relay">끝말잇기</Link>
+        </li>
+        <li>
+          <Link to="/game/number-baseball">숫자야구</Link>
+        </li>
+        <li>
+          <Link to="/game/response-check">반응속도체크</Link>
+        </li>
+        <li>
+          <Link to="/game/rsp">가위바위보</Link>
+        </li>
+        <li>
+          <Link to="/game/lotto">로또</Link>
+        </li>
+        <li>
+          <Link to="/game/tictactoe">틱택토</Link>
+        </li>
+        <li>
+          <Link to="/game/mine-search">지뢰찾기</Link>
+        </li>
+      </ul>
     </div>
   )
 }
