@@ -1,8 +1,6 @@
 function RSP() {
   return (
-    <div>
-      가위바위보이다.
-    </div>
+    <h3>가위바위보</h3>
   )
 }
 

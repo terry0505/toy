@@ -1,5 +1,5 @@
 .header {
-    margin: 0 auto;
+    margin: 10px auto 0;
     padding: 0 10px;
     display: flex;
     align-items: center;
@@ -16,7 +16,9 @@
     }
   
     .navbar {
+    
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 20px;
       font-size: 15px;
@@ -30,20 +32,18 @@
           text-align: center;
           color: #555;   
         }
-          
         &:hover {
             a {
                 color: #ff5f15; 
             }
         }
-      }
-
-      li.on {
-        a {
-          color: #ff5f15; 
-          font-weight: bold; 
+        &.on {
+            a {
+              color: #ff5f15; 
+              font-weight: bold; 
+            }
         }
       }
+
     }
   }
-  

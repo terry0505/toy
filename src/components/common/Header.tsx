@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      <h1>GAME STEP</h1>
+      <h1><Link to="/">GAME STEP</Link></h1>
       <ul className={styles.navbar} ref={navbarRef}>
         <li onClick={handleClick}>
           <Link to="/game/gugudan">STEP1</Link>

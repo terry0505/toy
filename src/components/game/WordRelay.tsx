@@ -1,8 +1,6 @@
 function WordRelay() {
   return (
-    <div>
-      끝말잇기이다.
-    </div>
+    <h3>끝말잇기</h3>
   )
 }
 

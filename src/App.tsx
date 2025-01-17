@@ -5,10 +5,10 @@ import Header from './components/common/Header';
 function App() {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.container}>
         <Header/>
-        <Outlet/>
-      </div>
+        <div className={styles.container}>
+            <Outlet/>
+        </div>
     </div>
   );
 }

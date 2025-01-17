@@ -1,0 +1,28 @@
+.main {
+    display:flex; 
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap:10px;
+    text-align: center;
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background-color: transparent;
+        &:hover {
+            background-color: #c0ff8c;
+        }
+        img {
+            width: 100%;
+        }
+        p {
+            font-size: 24px;
+            font-weight: 900;
+        }
+    }
+
+}

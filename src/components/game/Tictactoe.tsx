@@ -1,8 +1,6 @@
 function Tictactoe() {
   return (
-    <div>
-      틱택토이다.
-    </div>
+    <h3>틱택토</h3>
   )
 }
 

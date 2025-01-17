@@ -1,8 +1,6 @@
 function MineSearch() {
   return (
-    <div>
-      지뢰찾기
-    </div>
+    <h3>지뢰찾기</h3>
   )
 }
 

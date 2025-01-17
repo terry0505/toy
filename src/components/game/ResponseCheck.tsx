@@ -1,8 +1,6 @@
 function ResponseCheck() {
   return (
-    <div>
-      반응속도체크이다.
-    </div>
+    <h3>반응속도체크</h3>
   )
 }
 

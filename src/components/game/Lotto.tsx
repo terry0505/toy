@@ -1,8 +1,6 @@
 function Lotto() {
   return (
-    <div>
-      로또이다.
-    </div>
+    <h3>로또</h3>
   )
 }
 export { Lotto };
