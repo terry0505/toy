@@ -30,7 +30,8 @@
         "@components/*": ["src/components/*"],
         "@pages/*": ["src/pages/*"],
         "@types/*": ["src/types/*"],
-        "@apis/*": ["src/apis/*"]
+        "@apis/*": ["src/apis/*"],
+        "@contexts/*": ["src/contexts/*"],
       },
       "noImplicitAny": false,
       "strictNullChecks": false
