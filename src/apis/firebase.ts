@@ -19,6 +19,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 const app = initializeApp(firebaseConfig);
+console.log(app);
 const auth = getAuth();
 
 export const socialLogin = (type) => async () => {
@@ -28,7 +29,7 @@ export const socialLogin = (type) => async () => {
       provider = new GoogleAuthProvider();
     } else if (type === 'github') {
       provider = new GithubAuthProvider();
-    }
+    } 
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     console.log(user);
