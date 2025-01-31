@@ -9,7 +9,7 @@ export default function Main() {
     const [authType, setAuthType] = useState<string>('');
     
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState<string>('');
+    const [password, setPassword] = useState<any>('');
 
     useEffect(()=>{
         console.log(user);
@@ -67,7 +67,7 @@ export default function Main() {
             </>
         ) : (
             <div>
-                <ul>
+                <ul className={styles.tab_base}>
                     <li onClick={handleTab(1)}>
                         social 인증
                     </li>
@@ -76,17 +76,17 @@ export default function Main() {
                     </li>
                 </ul>
                 { tab == 1 && (
-                    <div>
-                        <div>
-                            <button onClick={socialLogin('google')}>구글 로그인/회원가입</button>
-                            <button onClick={socialLogin('github')}>깃헙 로그인/회원가입</button>
+                    <div className={styles.panel_base}>
+                        <div className={styles.btn_wrap}>
+                            <button className={styles.google_btn} onClick={socialLogin('google')}>구글 로그인/회원가입</button>
+                            <button className={styles.github_btn} onClick={socialLogin('github')}>깃헙 로그인/회원가입</button>
                         </div>
                     </div>
                 )}
                 {tab == 2 && (
-                    <div>
+                    <div className={styles.panel_base}>
                         {authType == '' && (
-                            <div>
+                            <div className={styles.btn_wrap}>
                                 <button onClick={()=> setAuthType('login')}>로그인</button>
                                 <button onClick={()=> setAuthType('signup')}>회원가입</button>
                             </div>
@@ -103,8 +103,18 @@ export default function Main() {
                         {authType == 'signup' && (
                             <div>
                                 <form onSubmit={handleSubmit}>
-                                    <input type="text" />
-                                    <input type="text" />
+                                    <input 
+                                        type="email" 
+                                        placeholder='이메일을 입력해주세요.' 
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)} 
+                                    />
+                                    <input 
+                                        type="password" 
+                                        placeholder='비밀번호를 입력해주세요.' 
+                                        value={password} 
+                                        onChange={(e)=> setPassword(e.target.value)} 
+                                    />
                                     <button>일반 회원가입</button>
                                 </form>
                             </div>
