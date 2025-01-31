@@ -18,8 +18,7 @@ const firebaseConfig = {
   messagingSenderId: import.meta.env.VITE_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
-
-const app = initializeApp(firebaseConfig); 
+const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export const socialLogin = (type) => async () => {
