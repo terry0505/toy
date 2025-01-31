@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GithubAuthProvider,
+  FacebookAuthProvider,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -29,7 +30,10 @@ export const socialLogin = (type) => async () => {
       provider = new GoogleAuthProvider();
     } else if (type === 'github') {
       provider = new GithubAuthProvider();
+    } else if (type === 'github') {
+        provider = new FacebookAuthProvider();
     } 
+    
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     console.log(user);
