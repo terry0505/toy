@@ -5,8 +5,6 @@ import {
   GithubAuthProvider,
   FacebookAuthProvider,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -34,8 +32,6 @@ export const socialLogin = (type) => async () => {
       provider = new GithubAuthProvider();
     } else if (type === 'facebook') {
         provider = new FacebookAuthProvider();
-        await signInWithRedirect(auth, provider);
-        return;
     } 
     
     const result = await signInWithPopup(auth, provider);
@@ -45,21 +41,7 @@ export const socialLogin = (type) => async () => {
   } catch (error) {
     console.error(error);
   }
-
 };
-
-// OAuth Redirect 후 결과 처리
-export async function handleRedirectLogin() {
-    try {
-      const result = await getRedirectResult(auth);
-      if (result) {
-        console.log('로그인 성공:', result.user);
-        return result.user;
-      }
-    } catch (error) {
-      console.error('Redirect 로그인 에러:', error);
-    }
-}
 
 export const login = async (email, password) => {
   try {
