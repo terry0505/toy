@@ -80,7 +80,6 @@ export default function Main() {
                         <div className={styles.btn_wrap}>
                             <button className={styles.google_btn} onClick={socialLogin('google')}>구글 로그인/회원가입</button>
                             <button className={styles.github_btn} onClick={socialLogin('github')}>깃헙 로그인/회원가입</button>
-                            <button className={styles.facebook_btn} onClick={socialLogin('facebook')}>페이스북 로그인/회원가입</button>
                         </div>
                     </div>
                 )}
