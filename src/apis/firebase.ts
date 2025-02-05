@@ -38,7 +38,9 @@ export const socialLogin = (type) => async () => {
   } catch (error) {
     console.error(error);
   }
+
 };
+
 
 export const login = async (email, password) => {
   try {
