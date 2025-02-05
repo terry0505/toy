@@ -3,7 +3,10 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GithubAuthProvider,
+  FacebookAuthProvider,
   GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -29,7 +32,10 @@ export const socialLogin = (type) => async () => {
       provider = new GoogleAuthProvider();
     } else if (type === 'github') {
       provider = new GithubAuthProvider();
+    } else if (type === 'facebook') {
+    provider = new FacebookAuthProvider();
     } 
+    
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
     console.log(user);
@@ -37,7 +43,9 @@ export const socialLogin = (type) => async () => {
   } catch (error) {
     console.error(error);
   }
+
 };
+
 
 export const login = async (email, password) => {
   try {
