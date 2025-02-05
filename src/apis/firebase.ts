@@ -33,7 +33,7 @@ export const socialLogin = (type) => async () => {
     } else if (type === 'github') {
       provider = new GithubAuthProvider();
     } else if (type === 'facebook') {
-    provider = new FacebookAuthProvider();
+        provider = new FacebookAuthProvider();
     } 
     
     const result = await signInWithPopup(auth, provider);
