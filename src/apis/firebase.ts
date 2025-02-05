@@ -5,8 +5,6 @@ import {
   GithubAuthProvider,
   FacebookAuthProvider,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
