@@ -26,51 +26,5 @@
             }
         }
     }
-    .tab_base {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        li {
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 400px;
-            padding: 10px 0;
-            background-color: #000;
-            color:#fff;
-        }
-    }
-    .panel_base {
-        padding: 50px 0 0;
-        .btn_wrap{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap:20px;
-            button {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: fit-content;
-                width: 300px;
-                padding: 10px 0;
-                background-color: #444;
-                color:#fff;
-                border:none;
-                &.google_btn {
-                    background-color: #ff3e3e;
-                }
-                &.github_btn {
-                    background-color: #000;
-                }
-                &.facebook_btn {
-                    background-color: #0d4eff;
-                }
-            }
-        }
-    }
 
 }

@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Gugudan,
   WordRelay,
@@ -9,9 +10,22 @@ import {
   Tictactoe,
   MineSearch,
 } from '@/components/game';
+import { useAuthContext } from '@/contexts/AuthContext';
 
 function Game() {
+  const navigate = useNavigate();
+  const { user } = useAuthContext();
+
   const { id } = useParams();
+
+
+  useEffect(() => {
+        if (!user) { // 인증되지 않은 회원은
+        navigate('/login'); // 로그인 페이지로
+        }
+  }, [user]);
+
+
   function GameMatcher(id) {
     if (id == 'gugudan') {
       return <Gugudan />;
