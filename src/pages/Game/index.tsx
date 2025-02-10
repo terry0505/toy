@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Gugudan,
   WordRelay,
@@ -8,9 +8,9 @@ import {
   RSP,
   Lotto,
   Tictactoe,
-  MineSearch,
-} from '@/components/game';
-import { useAuthContext } from '@/contexts/AuthContext';
+  MineSearch
+} from "@/components/game";
+import { useAuthContext } from "@/contexts/AuthContext";
 
 function Game() {
   const navigate = useNavigate();
@@ -18,39 +18,34 @@ function Game() {
 
   const { id } = useParams();
 
-
   useEffect(() => {
-        if (!user) { // 인증되지 않은 회원은
-        navigate('/login'); // 로그인 페이지로
-        }
+    if (!user) {
+      // 인증되지 않은 회원은
+      navigate("/login"); // 로그인 페이지로
+    }
   }, [user]);
 
-
   function GameMatcher(id) {
-    if (id == 'gugudan') {
+    if (id == "gugudan") {
       return <Gugudan />;
-    } else if (id === 'word-relay') {
+    } else if (id === "word-relay") {
       return <WordRelay />;
-    } else if (id === 'number-baseball') {
+    } else if (id === "number-baseball") {
       return <NumberBaseball />;
-    } else if (id === 'response-check') {
+    } else if (id === "response-check") {
       return <ResponseCheck />;
-    } else if (id === 'rsp') {
+    } else if (id === "rsp") {
       return <RSP />;
-    } else if (id === 'lotto') {
+    } else if (id === "lotto") {
       return <Lotto />;
-    } else if (id === 'tictactoe') {
+    } else if (id === "tictactoe") {
       return <Tictactoe />;
-    } else if (id === 'mine-search') {
+    } else if (id === "mine-search") {
       return <MineSearch />;
     }
   }
 
-  return (
-    <>
-      {GameMatcher(id)}
-    </>
-  );
+  return <>{GameMatcher(id)}</>;
 }
 
 export default Game;

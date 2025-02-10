@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   socialLogin,
   login,
   logout,
   onUserStateChange,
-  signup,
-} from '@apis/firebase';
+  signup
+} from "@apis/firebase";
 
 const AuthContext = createContext(null);
 
@@ -24,7 +24,7 @@ export function AuthContextProvider({ children }) {
         socialLogin,
         login,
         logout,
-        signup,
+        signup
       }}
     >
       {children}
