@@ -11,7 +11,8 @@ import {
   signInWithPopup,
   signOut,
   User,
-  updateProfile
+  updateProfile,
+  deleteUser
 } from "firebase/auth";
 import {
   getFirestore,
@@ -178,3 +179,19 @@ export const fetchUser = (): Promise<User | null> => {
     onUserStateChange((user) => resolve(user));
   });
 };
+
+export async function removeUser(): Promise<void> {
+  try {
+    const user = auth.currentUser;
+    if (user) {
+      const userDocRef = doc(database, "users", user.uid);
+      await deleteDoc(userDocRef);
+      await deleteUser(user);
+      toastr.success("회원탈퇴가 완료되었습니다.");
+    }
+  } catch (error) {
+    console.error("회원탈퇴 에러 : ", error);
+    toastr.error("회원탈퇴 중 문제가 발생했습니다.");
+    throw error;
+  }
+}
