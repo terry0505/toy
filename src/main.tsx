@@ -6,6 +6,8 @@ import Main from "@/pages/Main";
 import Game from "@/pages/Game";
 import NotFound from "@/pages/NotFound";
 import Login from "./pages/Login";
+import Profile from "@/pages/Profile";
+import User from "@/pages/User";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +19,9 @@ const router = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/login/:id", element: <Login /> },
       { path: "/game", element: <Game /> },
-      { path: "/game/:id", element: <Game /> }
+      { path: "/game/:id", element: <Game /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/user/:uid", element: <User /> }
     ]
   }
 ]);
