@@ -1,11 +1,27 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { socialLogin, login, logout, signup, fetchUser } from "@apis/firebase";
+import {
+  socialLogin,
+  login,
+  logout,
+  signup,
+  fetchUser,
+  removeUser
+} from "@apis/firebase";
+import Modal from "@/components/ui/Modal"; // Modal 컴포넌트 추가
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
 export function AuthContextProvider({ children }) {
   //const [user, setUser] = useState<any>();
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [modal, setModal] = useState({
+    open: false,
+    message: "",
+    onConfirm: null
+  });
 
   const {
     data: isUser,
@@ -21,20 +37,55 @@ export function AuthContextProvider({ children }) {
   //     onUserStateChange((user) => setUser(user));
   //   }, []);
 
+  useEffect(() => {
+    setCurrentUser(isUser);
+  }, [isUser]);
+
+  const handleRemoveUser = async () => {
+    setModal({
+      open: true,
+      message: "정말로 회원탈퇴를 진행하시겠습니까?",
+      onConfirm: async () => {
+        try {
+          await removeUser();
+          await logout();
+          setCurrentUser(null);
+          navigate("/login/general", { replace: true });
+        } catch (error) {
+          setModal({
+            open: true,
+            message: "회원탈퇴 중 오류가 발생했습니다.",
+            onConfirm: null
+          });
+        }
+      }
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
-        user: isUser,
-        uid: isUser && isUser.uid,
+        user: currentUser,
+        uid: currentUser && currentUser.uid,
         isLoading,
         isError,
         socialLogin,
         login,
         logout,
-        signup
+        signup,
+        removeUser: handleRemoveUser
       }}
     >
       {children}
+      {modal.open && (
+        <Modal
+          message={modal.message}
+          onConfirm={modal.onConfirm}
+          onClose={() =>
+            setModal({ open: false, message: "", onConfirm: null })
+          }
+        />
+      )}
     </AuthContext.Provider>
   );
 }
