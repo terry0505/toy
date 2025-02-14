@@ -24,25 +24,25 @@ function Profile() {
       <div className={styles.page__profile}>
         <ul className={styles.page__profile__info}>
           <li>
-            <span className={styles.label}>ÀÌ¸ŞÀÏ</span>
+            <span className={styles.label}>ì´ë©”ì¼</span>
             <span className={styles.value}>{user?.email}</span>
           </li>
           <li>
-            <span className={styles.label}>´Ğ³×ÀÓ</span>
+            <span className={styles.label}>ë‹‰ë„¤ì„</span>
             <span className={styles.value}>
-              {user?.displayName ?? "¹æ¹®ÀÚ"}
+              {user?.displayName ?? "ë°©ë¬¸ì"}
             </span>
           </li>
           <li>
-            <span className={styles.label}>»ı¼ºÀÏ</span>
+            <span className={styles.label}>ìƒì„±ì¼</span>
             <span className={styles.value}>
-              {dayjs(user?.createdAt).format("YYYY³â MM¿ù DDÀÏ A HH½Ã mmºĞ")}
+              {dayjs(user?.createdAt).format("YYYYë…„ MMì›” DDì¼ A HHì‹œ mmë¶„")}
             </span>
           </li>
           <li>
-            <span className={styles.label}>¸¶Áö¸· Á¢¼ÓÀÏ</span>
+            <span className={styles.label}>ë§ˆì§€ë§‰ ì ‘ì†ì¼</span>
             <span className={styles.value}>
-              {dayjs(user?.lastLogin).format("YYYY³â MM¿ù DDÀÏ A HH½Ã mmºĞ")}
+              {dayjs(user?.lastLogin).format("YYYYë…„ MMì›” DDì¼ A HHì‹œ mmë¶„")}
             </span>
           </li>
         </ul>
