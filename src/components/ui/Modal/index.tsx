@@ -1,15 +1,21 @@
 import styles from "./Modal.module.scss";
 
 interface ModalProps {
+  dimm?: boolean;
   message: string;
   onConfirm?: () => void;
   onClose: () => void;
 }
 
-export default function Modal({ message, onConfirm, onClose }: ModalProps) {
+export default function Modal({
+  dimm = true,
+  message,
+  onConfirm,
+  onClose
+}: ModalProps) {
   return (
     <div className={styles.popup_wrap}>
-      <div className={styles.dimm}></div>
+      {dimm && <div className={styles.dimm}></div>}
       <div className={styles.modal_content}>
         <p>{message}</p>
         <div className={styles.button_wrap}>

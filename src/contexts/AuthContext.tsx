@@ -8,7 +8,7 @@ import {
   fetchUser,
   removeUser
 } from "@apis/firebase";
-import Modal from "@/components/ui/Modal"; // Modal ÄÄÆ÷³ÍÆ® Ãß°¡
+import Modal from "@/components/ui/Modal"; // Modal ì»´í¬ë„ŒíŠ¸ ì¶”ê°€
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
@@ -30,8 +30,8 @@ export function AuthContextProvider({ children }) {
   } = useQuery({
     queryKey: ["user", "me"],
     queryFn: fetchUser,
-    staleTime: 60 * 1000, //±âº» ¼³Á¤Àº 0 (fresh -> stale)
-    gcTime: 300 * 100 // ±âº» °ªÀÌ 300 * 1000, 5ºĞÀÓ
+    staleTime: 60 * 1000, //ê¸°ë³¸ ì„¤ì •ì€ 0 (fresh -> stale)
+    gcTime: 300 * 100 // ê¸°ë³¸ ê°’ì´ 300 * 1000, 5ë¶„ì„
   });
   //   useEffect(() => {
   //     onUserStateChange((user) => setUser(user));
@@ -44,17 +44,21 @@ export function AuthContextProvider({ children }) {
   const handleRemoveUser = async () => {
     setModal({
       open: true,
-      message: "Á¤¸»·Î È¸¿øÅ»Åğ¸¦ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?",
+      message: "ì •ë§ë¡œ íšŒì›íƒˆí‡´ë¥¼ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?",
       onConfirm: async () => {
         try {
           await removeUser();
           await logout();
           setCurrentUser(null);
-          navigate("/login/general", { replace: true });
+          setModal({
+            open: true,
+            message: "íšŒì›íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.",
+            onConfirm: () => navigate("/login/social")
+          });
         } catch (error) {
           setModal({
             open: true,
-            message: "È¸¿øÅ»Åğ Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.",
+            message: "íšŒì›íƒˆí‡´ ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.",
             onConfirm: null
           });
         }
