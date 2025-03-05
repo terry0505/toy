@@ -19,7 +19,9 @@ import {
   doc,
   getDoc,
   setDoc,
-  deleteDoc
+  deleteDoc,
+  collection,
+  getDocs
 } from "firebase/firestore";
 import toastr from "toastr";
 
@@ -133,7 +135,7 @@ export const signup = async (
 
     return user;
   } catch (error) {
-    // 코드 생략 ...
+    console.error("회원가입 오류: ", error);
   }
 };
 
@@ -192,6 +194,36 @@ export async function removeUser(): Promise<void> {
   } catch (error) {
     console.error("회원탈퇴 에러 : ", error);
     toastr.error("회원탈퇴 중 문제가 발생했습니다.");
+    throw error;
+  }
+}
+
+export async function getUsers() {
+  try {
+    const userCollection = collection(database, "users");
+    const userSnapshot = await getDocs(userCollection);
+    const users = userSnapshot.docs.map((doc) => ({
+      uid: doc.id,
+      ...doc.data()
+    }));
+    return users;
+  } catch (error) {
+    console.error("유저 목록 가져오기 오류: ", error);
+    throw error;
+  }
+}
+
+export async function getUserById(uid: string) {
+  try {
+    const userDocRef = doc(database, "users", uid);
+    const userDocSnap = await getDoc(userDocRef);
+    if (userDocSnap.exists()) {
+      return { uid, ...userDocSnap.data() };
+    } else {
+      throw new Error("해당 유저를 찾을 수 없습니다.");
+    }
+  } catch (error) {
+    console.error("유저 정보 가져오기 오류: ", error);
     throw error;
   }
 }

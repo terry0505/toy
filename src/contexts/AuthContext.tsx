@@ -6,7 +6,8 @@ import {
   logout,
   signup,
   fetchUser,
-  removeUser
+  removeUser,
+  getUsers
 } from "@apis/firebase";
 import Modal from "@/components/ui/Modal"; // Modal 컴포넌트 추가
 import { useNavigate } from "react-router-dom";
@@ -77,7 +78,8 @@ export function AuthContextProvider({ children }) {
         login,
         logout,
         signup,
-        removeUser: handleRemoveUser
+        removeUser: handleRemoveUser,
+        getUsers
       }}
     >
       {children}
