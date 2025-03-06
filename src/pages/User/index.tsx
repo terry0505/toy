@@ -1,47 +1,42 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "@/apis/firebase";
-import UsersList from "@/components/main/UsersList";
+import { UserType } from "@/types/firebase";
 
 export default function User() {
   const { uid } = useParams(); // URL에서 uid 가져오기
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchUser() {
-      if (!uid) return;
-      try {
-        const userData = await getUserById(uid);
-        setUser(userData);
-      } catch (error) {
-        console.error("유저 정보를 불러오는 중 오류 발생:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
+  // useQuery
+  const {
+    data: user,
+    isLoading,
+    isError
+  } = useQuery<UserType>({
+    queryKey: ["user", uid],
+    queryFn: () => getUserById(uid),
+    enabled: !!uid
+  });
 
-    fetchUser();
-  }, [uid]);
-
-  if (loading) {
+  if (isLoading) {
     return <p>로딩 중...</p>;
   }
 
-  if (!user) {
+  if (isError || !user) {
     return <p>유저 정보를 찾을 수 없습니다.</p>;
   }
 
   return (
     <div>
       <h2>{user.displayName || "익명 사용자"}님의 프로필</h2>
-      <p><strong>Email:</strong> {user.email}</p>
-      <p><strong>가입 날짜:</strong> {new Date(user.createdAt).toLocaleDateString()}</p>
-
-      <div>
-        <h3>다른 유저 목록</h3>
-        <UsersList />
-      </div>
+      <p>
+        <strong>Email:</strong> {user.email}
+      </p>
+      <p>
+        <strong>가입 날짜:</strong>{" "}
+        {user.createdAt
+          ? new Date(user.createdAt).toLocaleDateString()
+          : "알 수 없음"}
+      </p>
     </div>
   );
 }

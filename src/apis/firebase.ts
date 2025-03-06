@@ -1,4 +1,4 @@
-import { SocialProvider } from "@/types/firebase";
+import { SocialProvider, UserType } from "@/types/firebase";
 import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -198,32 +198,35 @@ export async function removeUser(): Promise<void> {
   }
 }
 
-export async function getUsers() {
+export async function getUsers(): Promise<UserType[]> {
   try {
     const userCollection = collection(database, "users");
     const userSnapshot = await getDocs(userCollection);
-    const users = userSnapshot.docs.map((doc) => ({
+    const users: UserType[] = userSnapshot.docs.map((doc) => ({
       uid: doc.id,
-      ...doc.data()
+      ...(doc.data() as UserType)
     }));
     return users;
   } catch (error) {
-    console.error("유저 목록 가져오기 오류: ", error);
-    throw error;
+    console.error("유저 목록 가져오기 오류:", error);
+    return [];
   }
 }
 
-export async function getUserById(uid: string) {
+export async function getUserById(uid?: string): Promise<UserType | null> {
+  if (!uid) return null;
+
   try {
     const userDocRef = doc(database, "users", uid);
     const userDocSnap = await getDoc(userDocRef);
+
     if (userDocSnap.exists()) {
-      return { uid, ...userDocSnap.data() };
+      return { uid, ...userDocSnap.data() } as UserType;
     } else {
-      throw new Error("해당 유저를 찾을 수 없습니다.");
+      return null;
     }
   } catch (error) {
-    console.error("유저 정보 가져오기 오류: ", error);
-    throw error;
+    console.error("유저 정보 가져오기 오류:", error);
+    return null;
   }
 }

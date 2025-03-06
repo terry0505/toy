@@ -37,7 +37,7 @@ export default function Header() {
             <button onClick={handleLogout}>로그아웃</button>
             <button onClick={removeUser}>회원탈퇴</button>
             <button onClick={() => navigate(`/user/${user.uid}`)}>
-              내 유저 페이지
+              마이페이지
             </button>
           </>
         ) : (

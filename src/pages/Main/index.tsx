@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/contexts/AuthContext";
 import styles from "./Main.module.scss";
+import UsersList from "@/components/main/UsersList";
 
 export default function Main() {
   const navigate = useNavigate();
@@ -42,6 +43,9 @@ export default function Main() {
           <Link to="/game/mine-search">지뢰찾기</Link>
         </li>
       </ul>
+      <div>
+        <UsersList />
+      </div>
     </div>
   );
 }
