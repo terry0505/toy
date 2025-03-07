@@ -19,7 +19,7 @@ export default function Main() {
     <div className={styles.main}>
       <ul className={styles.navbar}>
         <li>
-          <Link to="/game/gugudan">구구단1</Link>
+          <Link to="/game/gugudan">구구단</Link>
         </li>
         <li>
           <Link to="/game/word-relay">끝말잇기</Link>

@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAuthContext } from "@/contexts/AuthContext";
 import styles from "@/components/common/Header.module.scss";
@@ -6,12 +6,13 @@ import styles from "@/components/common/Header.module.scss";
 export default function Header() {
   const queryClient = useQueryClient();
   const { user, logout } = useAuthContext();
+  const navigate = useNavigate();
   const handleLogout = async () => {
     await logout();
     await queryClient.invalidateQueries({
       queryKey: ["user", "me"]
     });
-    Navigate("/login");
+    navigate("/login");
   };
 
   return (
