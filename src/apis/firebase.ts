@@ -1,5 +1,5 @@
 import { SocialProvider, UserType } from "@/types/firebase";
-import { initializeApp } from "firebase/app";
+import { FirebaseError, initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -102,14 +102,44 @@ export const login = async (
           {
             lastLogin: new Date().toISOString()
           },
-          { merge: true } // 기존 데이터에 병합
+          { merge: true }
         );
       }
     }
 
     return user;
   } catch (error) {
-    // 코드 생략...
+    // throw error;
+    const fbError = error as FirebaseError;
+    switch (fbError.code) {
+      case "auth/invalid-email":
+        toastr.error("유효하지 않은 이메일입니다.");
+        break;
+      case "auth/user-disabled":
+        toastr.error("비활성화된 계정입니다. 관리자에게 문의하세요.");
+        break;
+      case "auth/user-not-found":
+        toastr.error("존재하지 않는 사용자입니다. 이메일을 확인해주세요.");
+        break;
+      case "auth/missing-password":
+        toastr.error("잘못된 비밀번호입니다.");
+        break;
+      case "auth/invalid-credential":
+        toastr.error("유효하지 않은 계정입니다.");
+        break;
+      case "auth/network-request-failed":
+        toastr.error(
+          "네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요."
+        );
+        break;
+      case "auth/too-many-requests":
+        toastr.error("요청이 너무 많습니다. 잠시 후 다시 시도해주세요.");
+        break;
+      default:
+        toastr.error("알 수 없는 오류가 발생했습니다.", fbError.message);
+        break;
+    }
+    return null; // 에러 발생 시 null 반환
   }
 };
 
@@ -135,7 +165,30 @@ export const signup = async (
 
     return user;
   } catch (error) {
-    console.error("회원가입 오류: ", error);
+    const fbError = error as FirebaseError;
+    switch (fbError.code) {
+      case "auth/email-already-in-use":
+        toastr.error("이미 사용 중인 이메일입니다.");
+        break;
+      case "auth/invalid-email":
+        toastr.error("유효하지 않은 이메일입니다.");
+        break;
+      case "auth/weak-password":
+        toastr.error("비밀번호가 너무 약합니다. 6자 이상 입력해주세요.");
+        break;
+      case "auth/operation-not-allowed":
+        toastr.error("현재 이메일/비밀번호로 회원가입이 비활성화되었습니다.");
+        break;
+      case "auth/network-request-failed":
+        toastr.error(
+          "네트워크 오류가 발생했습니다. 인터넷 연결을 확인해주세요."
+        );
+        break;
+      default:
+        toastr.error("알 수 없는 오류가 발생했습니다.", fbError.message);
+        break;
+    }
+    return null; // 에러 발생 시 null 반환
   }
 };
 
@@ -200,12 +253,21 @@ export async function removeUser(): Promise<void> {
 
 export async function getUsers(): Promise<UserType[]> {
   try {
-    const userCollection = collection(database, "users");
+    const userCollection = collection(database, "users"); // 🔹 전체 유저 목록 가져오기
     const userSnapshot = await getDocs(userCollection);
+
+    if (userSnapshot.empty) {
+      console.warn("유저 목록이 비어 있습니다.");
+      return [];
+    }
+
     const users: UserType[] = userSnapshot.docs.map((doc) => ({
       uid: doc.id,
       ...(doc.data() as UserType)
     }));
+
+    console.log("불러온 유저 목록:", users); // 🔹 데이터 로깅
+
     return users;
   } catch (error) {
     console.error("유저 목록 가져오기 오류:", error);
