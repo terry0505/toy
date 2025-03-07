@@ -19,7 +19,7 @@ export default function Header() {
       <h1>
         <Link to="/">Vite + React.js로 웹게임 만들기</Link>
       </h1>
-      <div className={styles.header__utilmenu}>
+      <div className={styles.util_menu}>
         {user ? (
           <>
             {user.displayName && (

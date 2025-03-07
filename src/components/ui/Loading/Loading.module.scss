@@ -22,6 +22,10 @@
   top: 50%;
   margin: -24px 0 0 -24px;
   z-index: 9;
+  &.noFixed {
+    position: static;
+    margin: 30px;
+  }
 }
 
 @keyframes rotation {

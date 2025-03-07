@@ -1,13 +1,109 @@
+$transition-duration: 0.2s;
+
 .wrapper {
-    .container {
-      padding: 30px;
-    }
+  .container {
+    padding: 30px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .wrapper {
-      .container {
-        padding: 20px;
+}
+
+.commonBtnStyle {
+  border: 0;
+  display: block;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color $transition-duration;
+}
+
+.commonBtn {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  a,
+  button {
+    @extend .commonBtnStyle;
+  }
+}
+
+.commonInput {
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.commonModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  &__content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    h3 {
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+    p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .commonBtn {
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        border-radius: 4px;
+        margin-top: 10px;
+        &:first-child {
+          background-color: #007bff;
+          color: white;
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+        &:last-child {
+          background-color: #f8f9fa;
+          color: #333;
+          &:hover {
+            background-color: #e2e6ea;
+          }
+        }
       }
     }
   }
+}
+
+.commonError {
+  color: red;
+  font-size: 0.875rem;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    .container {
+      padding: 20px;
+    }
+  }
+}
