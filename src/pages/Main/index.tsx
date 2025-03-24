@@ -1,50 +1,43 @@
 import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/contexts/AuthContext";
-import styles from "./Main.module.scss";
-import UsersList from "@/components/main/UsersList";
+import styles from "@/pages/Main/Main.module.scss";
+import UsersList from "@/components/main/UserList";
+import PostsList from "@/components/main/PostList";
+import GameList from "@/components/main/GameList";
 
-export default function Main() {
+function Main() {
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { user, isLoading } = useAuthContext();
 
   useEffect(() => {
-    if (!user) {
-      // 인증되지 않은 회원은
-      navigate("/login"); // 로그인 페이지로
+    if (!isLoading && !user) {
+      navigate("/login");
     }
-  }, [user]);
+  }, [user, isLoading]);
 
   return (
-    <div className={styles.main}>
-      <ul className={styles.navbar}>
-        <li>
-          <Link to="/game/gugudan">구구단</Link>
-        </li>
-        <li>
-          <Link to="/game/word-relay">끝말잇기</Link>
-        </li>
-        <li>
-          <Link to="/game/number-baseball">숫자야구</Link>
-        </li>
-        <li>
-          <Link to="/game/response-check">반응속도체크</Link>
-        </li>
-        <li>
-          <Link to="/game/rsp">가위바위보</Link>
-        </li>
-        <li>
-          <Link to="/game/lotto">로또</Link>
-        </li>
-        <li>
-          <Link to="/game/tictactoe">틱택토</Link>
-        </li>
-        <li>
-          <Link to="/game/mine-search">지뢰찾기</Link>
-        </li>
-      </ul>
+    <div className={styles.page}>
+      <p className={styles.page__message}>
+        해당 서비스는 리액트 교육 목적으로 제작 되었습니다.
+      </p>
 
-      <UsersList />
+      <div className={styles.page__wrapper}>
+        <div className={styles.page__content}>
+          <h3 className={styles.page__title}>글 목록</h3>
+          <PostsList />
+        </div>
+        <div className={styles.page__content}>
+          <h3 className={styles.page__title}>게임 목록</h3>
+          <GameList />
+        </div>
+        <div className={styles.page__content}>
+          <h3 className={styles.page__title}>회원 목록</h3>
+          <UsersList />
+        </div>
+      </div>
     </div>
   );
 }
+
+export default Main;

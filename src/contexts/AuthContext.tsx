@@ -1,6 +1,13 @@
 import { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { socialLogin, login, logout, signup, fetchUser } from "@apis/firebase";
+import {
+  socialLogin,
+  login,
+  logout,
+  signup,
+  fetchUser,
+  removeUser
+} from "@apis/firebase";
 
 const AuthContext = createContext(null);
 
@@ -14,8 +21,8 @@ export function AuthContextProvider({ children }) {
   } = useQuery({
     queryKey: ["user", "me"],
     queryFn: fetchUser,
-    staleTime: 60 * 1000, //±âº» ¼³Á¤Àº 0 (fresh -> stale)
-    gcTime: 300 * 100 // ±âº» °ªÀÌ 300 * 1000, 5ºĞÀÓ
+    staleTime: 60 * 1000, //ê¸°ë³¸ ì„¤ì •ì€ 0 (fresh -> stale)
+    gcTime: 300 * 100 // ê¸°ë³¸ ê°’ì´ 300 * 1000, 5ë¶„ì„
   });
   //   useEffect(() => {
   //     onUserStateChange((user) => setUser(user));
@@ -31,7 +38,8 @@ export function AuthContextProvider({ children }) {
         socialLogin,
         login,
         logout,
-        signup
+        signup,
+        removeUser
       }}
     >
       {children}

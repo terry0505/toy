@@ -1,4 +1,4 @@
-import { IUser, SocialProvider } from "@/types/firebase";
+import { IPost, IUser, SocialProvider } from "@/types/firebase";
 import { FirebaseError, initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
@@ -23,7 +23,11 @@ import {
   setDoc,
   deleteDoc,
   collection,
-  getDocs
+  getDocs,
+  addDoc,
+  updateDoc,
+  query,
+  orderBy
 } from "firebase/firestore";
 import toastr from "toastr";
 
@@ -39,6 +43,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const database = getFirestore(app);
+const postsCollectionRef = collection(database, "posts");
 
 export const socialLogin =
   (type: SocialProvider) => async (): Promise<User | null> => {
@@ -283,3 +288,49 @@ export async function getUser(userId: string) {
     throw error;
   }
 }
+
+// 게시글 추가
+export const addPost = async (title: string, content: string) => {
+  const user = auth.currentUser;
+
+  return await addDoc(postsCollectionRef, {
+    title,
+    content,
+    createdAt: new Date(),
+    ...(user && { author: user.uid }) // user가 있으면 author 필드 추가
+  });
+};
+
+// 게시글 조회
+export const getPosts = async () => {
+  const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
+
+// 게시글 보기
+export const getPostById = async (postId): Promise<IPost> => {
+  const postRef = doc(database, "posts", postId);
+  const postSnap = await getDoc(postRef);
+  if (postSnap.exists()) {
+    return { id: postSnap.id, ...postSnap.data() } as IPost;
+  } else {
+    throw new Error("글을 찾을 수 없습니다.");
+  }
+};
+
+// 게시글 수정
+export const updatePost = async (
+  id: string,
+  title: string,
+  content: string
+) => {
+  const postRef = doc(database, "posts", id);
+  return await updateDoc(postRef, { title, content });
+};
+
+// 게시글 삭제
+export const deletePost = async (id: string) => {
+  const postRef = doc(database, "posts", id);
+  return await deleteDoc(postRef);
+};

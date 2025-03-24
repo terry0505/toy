@@ -1,0 +1,15 @@
+@use "@/assets/styles/main.scss" as *;
+
+.page {
+  max-width: 640px;
+  &__post {
+    &__title {
+      @include boxStyle;
+      margin-bottom: 20px;
+    }
+    &__date {
+      font-size: 14px;
+      text-align: right;
+    }
+  }
+}

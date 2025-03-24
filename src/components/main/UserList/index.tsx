@@ -1,7 +1,7 @@
 import { getUsers } from "@/apis/firebase";
 import { IUser } from "@/types/firebase";
 import { useEffect, useState } from "react";
-import Loading from "../ui/Loading";
+import Loading from "../../ui/Loading";
 import { Link } from "react-router-dom";
 import styles from "./UsersList.module.scss";
 
