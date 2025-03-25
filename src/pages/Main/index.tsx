@@ -32,7 +32,6 @@ function Main() {
           <GameList />
         </div>
         <div className={styles.page__content}>
-          <h3 className={styles.page__title}>회원 목록</h3>
           <UsersList />
         </div>
       </div>

@@ -27,8 +27,15 @@
     }
   }
 }
+.page__title {
+  text-align: center;
+}
+.page__content {
+  margin-top: 20px;
+}
 .page__list {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 20px;
 }

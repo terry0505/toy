@@ -1,0 +1,20 @@
+.page {
+  margin: 10px auto 0;
+  padding: 30px;
+  width: 720px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+  &__post__nodata {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__post__btn {
+    margin: 20px auto 0;
+    width: fit-content;
+  }
+  &__post__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
