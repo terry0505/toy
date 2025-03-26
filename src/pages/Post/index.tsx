@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import toastr from "toastr";
-import cx from "classnames";
+import { useNavigate } from "react-router-dom";
 import { getPosts } from "@/apis/firebase";
 import Loading from "@/components/ui/Loading";
 import { formatDate } from "@/utils";
 import commonStyles from "@/assets/styles/common.module.scss";
-import styles from "./PostList.module.scss";
+import styles from "@components/main/PostList/PostList.module.scss";
 
-function PostsList() {
+function Post() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,10 +16,9 @@ function PostsList() {
       setLoading(true);
       try {
         const data = await getPosts();
-        setPosts(data.slice(0, 5)); //처음 5개만
+        setPosts(data);
       } catch (err) {
         console.error(err);
-        toastr.error("글을 불러오는 중 오류 발생");
       } finally {
         setLoading(false);
       }
@@ -29,26 +26,11 @@ function PostsList() {
     fetchPosts();
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (posts.length == 0) {
-    return (
-      <div className={styles.page}>
-        <p className={styles.page__post__nodata}>글이 없습니다.</p>
-        <Link
-          to="/post/write"
-          className={cx(styles.page__post__btn, commonStyles.commonBtnStyle)}
-        >
-          글 작성하러 가기
-        </Link>
-      </div>
-    );
-  }
+  if (loading) return <Loading />;
 
   return (
     <div className={styles.page}>
+      <h2 className={styles.page__title}>전체 게시글</h2>
       <ul className={styles.page__post__list}>
         {posts.map((post) => (
           <li key={post.id} onClick={() => navigate(`/post/${post.id}`)}>
@@ -59,17 +41,11 @@ function PostsList() {
           </li>
         ))}
       </ul>
-
-      <div className={styles.page__post__more}>
-        <Link
-          to="/posts/all"
-          className={cx(commonStyles.commonBtnStyle, styles.page__post__btn)}
-        >
-          전체 글 더보기
-        </Link>
+      <div className={commonStyles.commonBtn}>
+        <button onClick={() => navigate("/")}>목록</button>
       </div>
     </div>
   );
 }
 
-export default PostsList;
+export default Post;

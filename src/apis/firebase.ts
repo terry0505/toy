@@ -305,7 +305,24 @@ export const addPost = async (title: string, content: string) => {
 export const getPosts = async () => {
   const q = query(postsCollectionRef, orderBy("createdAt", "desc"));
   const snapshot = await getDocs(q);
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const realPosts = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+  // mock 데이터 추가
+  if (process.env.NODE_ENV === "development") {
+    const mockPosts = Array.from({ length: 40 }, (_, i) => ({
+      id: `mock-${i + 1}`,
+      title: `Mock Post Title ${i + 1}`,
+      createdAt: {
+        seconds: Math.floor(Date.now() / 1000) - i * 86400
+      }
+    }));
+
+    return [...realPosts, ...mockPosts];
+  }
+
+  return realPosts;
 };
 
 // 게시글 보기
