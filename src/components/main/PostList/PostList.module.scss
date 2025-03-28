@@ -17,4 +17,10 @@
     flex-direction: column;
     gap: 10px;
   }
+  &__post__end {
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    text-align: center;
+  }
 }
